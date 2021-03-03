@@ -149,12 +149,6 @@ public class Tienda {
 			
 		}while(salircomprar !=0);
 		
-		//Pedimos articulo por codigo, lo buscamos
-		//    si existe Pedimos cantidad
-		//	  	si hay disponibilidad
-		//			Añadimos al carrito
-		//mostrar carrito 
-		//repetir mientras 
 		
 	}
 	
@@ -183,15 +177,7 @@ public class Tienda {
 		}
 		else
 			System.out.println("Puede continuar comprando.");
-		//Preguntamos confirmacion
-		// Si se confirma
-		// 		Modificar en el catalogo el stock de los articulos del carrito, restando
-		// 		las cantidades al stock
-		//		Cambiar estado carrito a confirmado
-		//		Mostramos carrito articulos+cantidades+ el total y estado
-		//		Mostramos catalogo con el nuevo stock
-		//		Mostramos mensaje de despedida y salimos del programa
-		//Si no se confirma: Mostramos mensaje de que puede seguir comprando
+
 	}
 
 }
