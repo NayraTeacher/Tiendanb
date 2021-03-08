@@ -5,6 +5,7 @@
  */
 package com.mycompany.tienda;
 /**
+ * Clase que define los objetos artículo con la cantidad que se quiera incluir en el carrito de la compra
  * @author Nayra
  *
  */

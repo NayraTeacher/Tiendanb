@@ -6,7 +6,7 @@
 package com.mycompany.tienda;
 
 /**
- *
+ * Clase general definicion de articulos para vender en la tienda
  * @author Nayra
  */
 public class Articulo {
@@ -15,9 +15,19 @@ public class Articulo {
 	private String nombre;
 	private float precio;
 	private int stock;
-	
+        
+	/**
+         * Constructor vacio
+         */
 	public Articulo() {};
 	
+        /**
+         * Constructor con todos los parametros
+         * @param codigo de tipo String, nos sirve para identificar el articulo de forma univoca
+         * @param nombre de tipo String, nos sirve para darle un nombre descriptivo al articulo
+         * @param precio de tipo float, indica el precio unitario del artículo
+         * @param stock de tipo entero, indica las unidades de las que se dispone el almacén de este artículo
+         */
 	public Articulo(String codigo, String nombre, float precio, int stock) {
 		setCodigo(codigo);
 		setNombre(nombre);
@@ -81,10 +91,21 @@ public class Articulo {
 		}
 	}
 	
+        /**
+         * Metodo para saber si hay disponibilidad para comprar una cantidad del artículo.
+         * @param cantidad Entero que indica la cantidad que se desea comprar
+         * @return cierto si hay disponibilidad y falso si no. Este método no varía los valores de los atributos del articulo.
+         */
 	public boolean disponible(int cantidad) {
 		return cantidad<=stock;
 	}
 	
+        /**
+         * Método que nos ajusta el stock del artículo sumandole la cantidad proporcionada como parámetro. Si el artículo es vendido,
+         * hay que pasar la cantidad vendida con un signo negativo para que se reste del stock. Si por contra, se ha adquirido más stock 
+         * del artículo al proveedor, habrá que ajustarlo pasando la cantidad adquirida en positivo.
+         * @param cantidad Entero con la cantidad a ajustar.  
+         */
 	public void ajustarStock(int cantidad) {
 		this.stock += cantidad;
 	}

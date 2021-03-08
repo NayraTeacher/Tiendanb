@@ -8,6 +8,8 @@ package com.mycompany.tienda;
 import java.util.ArrayList;
 
 /**
+ * Clase que define los objetos carrito de la compra, que lo constituyen una lista de objetos de la clase ArticuloCarrito, 
+ * un importe total y un estado del carrito que nos dira si ya esta confirmado o si aun esta pendiente y se puede seguir comprando.
  * @author Nayra
  *
  */
@@ -19,7 +21,10 @@ public class Carrito {
 	public static boolean CONFIRMADO = true;
 	public static boolean PENDIENTE = false;
 	
-	public Carrito() {
+    /**
+     * 
+     */
+    public Carrito() {
 		pedido = new ArrayList<ArticuloCarrito>();
 		total = 0;
 		confirmado = PENDIENTE;
@@ -52,7 +57,11 @@ public class Carrito {
 		this.total = calculaTotal();
 	}
 	
-	public String mostrarCarrito() {
+    /**
+     *
+     * @return
+     */
+    public String mostrarCarrito() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("************ CARRITO **************\n");
 		for(ArticuloCarrito ac: pedido) {
