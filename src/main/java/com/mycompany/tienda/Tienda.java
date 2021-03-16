@@ -21,9 +21,11 @@ public class Tienda {
 	public static void main(String[] args) {
 		Scanner numeros = new Scanner(System.in);
 		Scanner cadenas = new Scanner(System.in);
-		
+                
+		Usuario user = new Usuario();
+                
 		int opcion = -1;
-		
+                
 		ArrayList<Articulo> catalogo = new ArrayList<Articulo>();
 		inicializaCatalogo(catalogo);
 		
@@ -34,6 +36,8 @@ public class Tienda {
 			System.out.println("1. Alta Articulo");
 			System.out.println("2. Comprar");
 			System.out.println("3. Confirmar compra");
+                        System.out.println("4. Crear usuario");
+                        System.out.println("5. Dar opinion de articulo");
 			System.out.println("0. Salir");
 			opcion = numeros.nextInt();
 			
@@ -47,6 +51,10 @@ public class Tienda {
 					break;
 				case 3:
 					break;
+                                case 4: crearUsuario(user, cadenas);
+                                        break;
+                                case 5: darOpinion(user, catalogo, cadenas, numeros);
+                                        break;
 				case 0:
 					System.out.println("Muchas gracias por su compra.");
 					break;
@@ -165,7 +173,6 @@ public class Tienda {
 		} 
 	}
 	
-	
 	private static void confirmarCarrito(ArrayList<Articulo> c, Carrito carro, Scanner sn) {
 		//Mostramos carrito articulos+cantidades+ el total y estado
 		System.out.println(carro.mostrarCarrito());
@@ -183,6 +190,66 @@ public class Tienda {
 			System.out.println("Puede continuar comprando.");
 
 	}
+        
+        private static void crearUsuario(Usuario us, Scanner sn){
+            String nombre, email, pass;
+            do{
+                System.out.println("Dame un nombre de usuario: ");
+                nombre = sn.nextLine();
+            }while(us.checkNombre(nombre) == false);
+            us.setNombre(nombre);
+            
+            do{
+                System.out.println("Dame un email: ");
+                email = sn.nextLine();
+            }while(us.checkEmail(email) == false);
+            us.setEmail(email);
+            
+            do{
+                System.out.println("Dame un password: ");
+                pass = sn.nextLine();
+            }while(us.checkPassword(pass) == false);
+            us.setPassword(pass);
+            
+            System.out.println(us);
+            
+            
+        }
+        
+        private static void darOpinion(Usuario us, ArrayList<Articulo> c, Scanner sc, Scanner sn){   
+            mostrarCatalogo(c);
+            System.out.println("Elige un articulo e introduce su codigo: ");
+	    String codigo = sc.nextLine();
+	    Articulo a = buscarArticuloPorCodigo(c, codigo);
+	    if (a != null) {
+                crearOpinion(us, a, sc, sn);
+                System.out.println(a);
+                System.out.println(a.showOpinions());
+            }
+	    else
+		System.out.println("Articulo no existe, elija otro.");
+        }
+        
+        
+        private static void crearOpinion(Usuario us, Articulo a, Scanner sc, Scanner sn){
+            System.out.println("Valora del 1 al 5 este articulo, 1: MAL, 2: REGULAR, 3: BIEN, 4:MUY BIEN, 5: EXCELENTE");
+            int puntos_aux = sn.nextInt();
+            Puntuacion puntos = Puntuacion.EXCELENTE;
+            if (puntos_aux == 1) 
+                puntos = Puntuacion.MAL;
+            if (puntos_aux == 2) 
+                puntos = Puntuacion.REGULAR;
+            if (puntos_aux == 3) 
+                puntos = Puntuacion.BIEN;
+            if (puntos_aux == 4) 
+                puntos = Puntuacion.MUY_BIEN;
+                           
+            System.out.println("Escribe un comentario breve:");
+            String comment = sc.nextLine();        
+                 
+            a.addOpinion(new Opinion(us, puntos, comment));
+        }
 
 }
+
 

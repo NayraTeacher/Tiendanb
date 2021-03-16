@@ -5,6 +5,8 @@
  */
 package com.mycompany.tienda;
 
+import java.util.ArrayList;
+
 /**
  * Clase general definicion de articulos para vender en la tienda
  * @author Nayra
@@ -15,11 +17,14 @@ public class Articulo {
 	private String nombre;
 	private float precio;
 	private int stock;
+        private ArrayList<Opinion> opiniones;
         
 	/**
          * Constructor vacio
          */
-	public Articulo() {};
+	public Articulo() {
+            opiniones = new ArrayList<Opinion>();
+        };
 	
         /**
          * Constructor con todos los parametros
@@ -33,6 +38,7 @@ public class Articulo {
 		setNombre(nombre);
 		setPrecio(precio);
 		setStock(stock);
+                opiniones = new ArrayList<Opinion>();
 	}
 	
 	public String getCodigo() {
@@ -70,7 +76,8 @@ public class Articulo {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Codigo: ").append(this.codigo).append("\nNombre: ").append(this.nombre).append("\nPrecio: ").append(this.precio).append("€\nStock: ").append(this.stock).append("\n");
+		sb.append("Codigo: ").append(this.codigo).append("\nNombre: ").append(this.nombre).append("\nPrecio: ").
+                        append(this.precio).append("€\nStock: ").append(this.stock).append("\nValoracion media: ").append(mediaOpinions()).append("\n");
 		return sb.toString();
 	}
 	
@@ -110,9 +117,39 @@ public class Articulo {
 		this.stock += cantidad;
 	}
 	
+        public void addOpinion(Opinion op){
+            opiniones.add(op);
+        }
+        
+        public String showOpinions(){
+            StringBuilder sb = new StringBuilder();
+            for(Opinion o: opiniones){
+                sb.append("\n").append(o);
+            }
+            return sb.toString();
+        }
 	
-	
-	
+        private float mediaOpinions(){
+            float media = 0;
+            for(Opinion o: opiniones){
+                if(o.getPuntuacion() == Puntuacion.MAL)
+                    media += 1;
+                if(o.getPuntuacion() == Puntuacion.REGULAR)
+                    media += 2;
+                if(o.getPuntuacion() == Puntuacion.BIEN)
+                    media += 3;
+                if(o.getPuntuacion() == Puntuacion.MUY_BIEN)
+                    media += 4;
+                if(o.getPuntuacion() == Puntuacion.EXCELENTE)
+                    media += 5;             
+            }
+            
+            if (opiniones.size() > 0)
+                media = media/opiniones.size();
+            
+            return media;
+                    
+        }
 	
 }
 
