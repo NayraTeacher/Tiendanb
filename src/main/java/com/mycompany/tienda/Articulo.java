@@ -6,12 +6,13 @@
 package com.mycompany.tienda;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Clase general definicion de articulos para vender en la tienda
  * @author Nayra
  */
-public class Articulo {
+public abstract class Articulo {
 	
 	private String codigo;
 	private String nombre;
@@ -40,6 +41,12 @@ public class Articulo {
 		setStock(stock);
                 opiniones = new ArrayList<Opinion>();
 	}
+        
+        /**
+         * Método abstracto a implementar por clases hija. Definir como aplicar promocion
+         * @param codigopromo 
+         */
+        public abstract void applyPromo(String codigopromo);        
 	
 	public String getCodigo() {
 		return codigo;
@@ -123,6 +130,17 @@ public class Articulo {
         
         public String showOpinions(){
             StringBuilder sb = new StringBuilder();
+            
+            for(Opinion o: opiniones){
+                sb.append("\n").append(o);
+            }
+            return sb.toString();
+        }
+        
+        public String showOpinionsSorted(){
+            StringBuilder sb = new StringBuilder();
+            Collections.sort(opiniones);
+            
             for(Opinion o: opiniones){
                 sb.append("\n").append(o);
             }

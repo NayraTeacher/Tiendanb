@@ -6,10 +6,11 @@
 package com.mycompany.tienda;
 
 /**
- *
+ * Clase opinion para crear opiniones de los articulos en venta. Implementa interfaz
+ * Comparable para poder ordenarlas por puntuacion
  * @author Nayra
  */
-public class Opinion {
+public class Opinion implements Comparable<Opinion>{
     private Usuario user;
     private Puntuacion puntuacion;
     private String comment;
@@ -52,6 +53,29 @@ public class Opinion {
         sb.append('\n');
         return sb.toString();
     }
+
+    @Override
+    public int compareTo(Opinion o) {
+        int resultado = 1;
+        if (this.puntuacion == o.getPuntuacion())
+            resultado = 0;
+        else if (this.puntuacion == Puntuacion.MAL || 
+                o.getPuntuacion() == Puntuacion.EXCELENTE)
+            resultado = -1;
+        else if (this.puntuacion == Puntuacion.REGULAR && 
+                (o.getPuntuacion() == Puntuacion.BIEN || 
+                    o.getPuntuacion() == Puntuacion.MUY_BIEN))
+            resultado = -1;
+        else if (this.puntuacion == Puntuacion.BIEN && 
+                o.getPuntuacion() == Puntuacion.MUY_BIEN)
+            resultado = -1;
+        else
+            resultado = 1;
+        return resultado;
+    }
+
+ 
+
 }
     
 

@@ -9,7 +9,7 @@ package com.mycompany.tienda;
  * Clase que hereda de artículo y nos sirve para definir articulos de tipo ropa de los que nos interesa tambien el color y la talla.
  * @author Nayra
  */
-public class Ropa extends Articulo{
+public final class Ropa extends Articulo{
     private String color;
     private TallaSML talla;
     
@@ -23,7 +23,7 @@ public class Ropa extends Articulo{
     
     @Override
     public String toString(){
-        return super.toString() + "Color: " + getColor() + "\nTalla: " + getTalla() + "\n"; 
+        return super.toString() + "Color: " + color + "\nTalla: " + talla + "\n"; 
     }
 
     /**
@@ -52,5 +52,13 @@ public class Ropa extends Articulo{
      */
     public void setTalla(TallaSML talla) {
         this.talla = talla;
+    }
+
+    @Override
+    public void applyPromo(String codigopromo) {
+       //Si el codigo promocional es "ROPAPROMO" aplico un 20% descuento en el precio
+       if (codigopromo.equals("ROPAPROMO"))
+            this.setPrecio(((float)this.getPrecio()*0.8));
+       
     }
 }

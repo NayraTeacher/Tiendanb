@@ -43,4 +43,15 @@ public class Electrodomestico extends Articulo{
     public String toString(){
         return super.toString() + "Gama: " + getGama() + "\nClasificacion: " + getClasificacion() + "\n"; 
     }
+
+    @Override
+    public void applyPromo(String codigopromo) {
+        //Si el codigo promocional es SINIVA aplicamos un 21% de descuento
+        //Si el codigo promocional es ELECPROMO aplicamos un 10%
+        if (codigopromo.equals("SINIVA"))
+            this.setPrecio(((float)this.getPrecio()*0.79));
+        if (codigopromo.equals("ELECPROMO"))
+            this.setPrecio(((float)this.getPrecio()*0.9));
+        
+    }
 }

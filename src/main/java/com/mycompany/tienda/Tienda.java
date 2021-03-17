@@ -27,6 +27,8 @@ public class Tienda {
 		int opcion = -1;
                 
 		ArrayList<Articulo> catalogo = new ArrayList<Articulo>();
+//                ArrayList<Ropa> c_ropa = new ArrayList<Ropa>();
+//                ArrayList<Electrodomestico> c_electrodomestico = new ArrayList<Electrodomestico>();
 		inicializaCatalogo(catalogo);
 		
 		Carrito cesta = new Carrito();
@@ -67,10 +69,18 @@ public class Tienda {
 	}
 	
 	private static void inicializaCatalogo(ArrayList<Articulo> c) {
-		c.add(new Articulo("0001", "Monitor", 200.00F, 10));
-		c.add(new Articulo("0002", "Teclado", 10.00F, 100));
-		c.add(new Articulo("0003", "RJ45 2M", 4.50F, 50));
-		c.add(new Articulo("0004", "Raton", 20.00F, 15));
+//		c.add(new Articulo("0001", "Monitor", 200.00F, 10));
+//		c.add(new Articulo("0002", "Teclado", 10.00F, 100));
+//		c.add(new Articulo("0003", "RJ45 2M", 4.50F, 50));
+//		c.add(new Articulo("0004", "Raton", 20.00F, 15));
+                c.add(new Ropa("blanco", TallaSML.M, "0001", "camiseta", 
+                        20.50F, 100));
+                c.add(new Electrodomestico("Industria", ClaseE.B, "0002", 
+                        "Lavadora", 1526.89F, 5));                
+                c.add(new Ropa("naranja", TallaSML.L, "0003", "pantalon", 
+                        55.50F, 100));
+                c.add(new Electrodomestico("Hogar", ClaseE.A, "0004", 
+                        "Horno", 870.89F, 10));
                 c.add(new Ropa("rojo", TallaSML.L, "0005", "jersey", 
                         25.50F, 100));
                 c.add(new Electrodomestico("Hogar", ClaseE.A, "0006", 
@@ -86,7 +96,18 @@ public class Tienda {
 		float precio = sn.nextFloat();
 		System.out.println("Introduce el stock del nuevo articulo:");
 		int stock = sn.nextInt();
-		c.add(new Articulo(codigo,nombre,precio,stock));
+                System.out.println("Introduce el color de la ropa:");
+		String color = sc.nextLine();
+                System.out.println("Introduce la talla de la ropa (S, M, L, X):");
+		char talla = sc.nextLine().toUpperCase().charAt(0);
+                TallaSML t = TallaSML.S;
+                if (talla == 'M')
+                    t = TallaSML.M;
+                if (talla == 'L')
+                    t = TallaSML.L;
+                if (talla == 'X')
+                    t = TallaSML.XL;
+		c.add(new Ropa(color, t, codigo,nombre,precio,stock));
 	}
 	
 	private static void mostrarCatalogo(ArrayList<Articulo> c) {
@@ -224,7 +245,7 @@ public class Tienda {
 	    if (a != null) {
                 crearOpinion(us, a, sc, sn);
                 System.out.println(a);
-                System.out.println(a.showOpinions());
+                System.out.println(a.showOpinionsSorted());
             }
 	    else
 		System.out.println("Articulo no existe, elija otro.");
