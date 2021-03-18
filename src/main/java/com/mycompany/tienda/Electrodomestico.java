@@ -8,6 +8,9 @@ package com.mycompany.tienda;
 /**
  *
  * @author Nayra
+ * Es reciclable si su Clase energetica es A o mejor y su año de fabricacion
+ * es posterior a hace 5 años
+ * Descuento si reciclable de un 30%
  */
 public class Electrodomestico extends Articulo{
     private ClaseE clasificacion;
