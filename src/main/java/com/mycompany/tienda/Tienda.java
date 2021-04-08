@@ -10,6 +10,13 @@ package com.mycompany.tienda;
  * @author Nayra
  */
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,6 +47,8 @@ public class Tienda {
 			System.out.println("3. Confirmar compra");
                         System.out.println("4. Crear usuario");
                         System.out.println("5. Dar opinion de articulo");
+                        System.out.println("6. Leer fichero");
+                        System.out.println("7. Guardar en fichero");
 			System.out.println("0. Salir");
 			opcion = numeros.nextInt();
 			
@@ -51,11 +60,15 @@ public class Tienda {
 				case 2:
 					comprar(catalogo, cesta, cadenas, numeros);
 					break;
-				case 3:
+				case 3: 
 					break;
                                 case 4: crearUsuario(user, cadenas);
                                         break;
                                 case 5: darOpinion(user, catalogo, cadenas, numeros);
+                                        break;
+                                case 6: loadArticulosFromFile();
+                                        break;
+                                case 7: saveArticulosToFile();
                                         break;
 				case 0:
 					System.out.println("Muchas gracias por su compra.");
@@ -73,15 +86,15 @@ public class Tienda {
 //		c.add(new Articulo("0002", "Teclado", 10.00F, 100));
 //		c.add(new Articulo("0003", "RJ45 2M", 4.50F, 50));
 //		c.add(new Articulo("0004", "Raton", 20.00F, 15));
-                c.add(new Ropa("blanco", TallaSML.M, "0001", "camiseta", 
+                c.add(new Ropa("blanco", TallaSML.M, 0, "0001", "camiseta", 
                         20.50F, 100));
                 c.add(new Electrodomestico("Industria", ClaseE.B, "0002", 
                         "Lavadora", 1526.89F, 5));                
-                c.add(new Ropa("naranja", TallaSML.L, "0003", "pantalon", 
+                c.add(new Ropa("naranja", TallaSML.L, 1, "0003", "pantalon", 
                         55.50F, 100));
                 c.add(new Electrodomestico("Hogar", ClaseE.A, "0004", 
                         "Horno", 870.89F, 10));
-                c.add(new Ropa("rojo", TallaSML.L, "0005", "jersey", 
+                c.add(new Ropa("rojo", TallaSML.L, 0, "0005", "jersey", 
                         25.50F, 100));
                 c.add(new Electrodomestico("Hogar", ClaseE.A, "0006", 
                         "Lavadora", 526.89F, 10));
@@ -92,6 +105,8 @@ public class Tienda {
 		String codigo = sc.nextLine();
 		System.out.println("Introduce el nombre del nuevo articulo:");
 		String nombre = sc.nextLine();
+                System.out.println("Introduce el numero de veces que este articulo se ha reciclado, 0 si es nuevo:");
+		int reci = sn.nextInt();
 		System.out.println("Introduce el precio del nuevo articulo:");
 		float precio = sn.nextFloat();
 		System.out.println("Introduce el stock del nuevo articulo:");
@@ -107,7 +122,7 @@ public class Tienda {
                     t = TallaSML.L;
                 if (talla == 'X')
                     t = TallaSML.XL;
-		c.add(new Ropa(color, t, codigo,nombre,precio,stock));
+		c.add(new Ropa(color, t, reci, codigo,nombre,precio,stock));
 	}
 	
 	private static void mostrarCatalogo(ArrayList<Articulo> c) {
@@ -271,6 +286,55 @@ public class Tienda {
             a.addOpinion(new Opinion(us, puntos, comment));
         }
 
+        /**
+         * Metodo para leer de un fichero y cargar los articulos en catalogo
+         */
+        public static void loadArticulosFromFile(){
+            File fichero = null;
+            FileReader lector = null;
+            BufferedReader buffer = null;
+
+            try {
+                fichero = new File("articulos.txt");
+                lector = new FileReader(fichero);
+                buffer = new BufferedReader(lector);
+                String linea = null;
+                while ((linea = buffer.readLine()) != null)
+                    System.out.println(linea);
+                
+            } catch (FileNotFoundException fnfe) { 
+                fnfe.printStackTrace();
+            } catch (IOException ioe) { 
+                ioe.printStackTrace(); 
+            } finally {
+                if (buffer != null)
+                try {
+                  buffer.close();
+                }catch (IOException ioe) { 
+                    ioe.printStackTrace();
+                }
+            }
+        }
+        
+        public static void saveArticulosToFile(){
+            FileWriter fichero = null;
+            PrintWriter escritor = null;
+
+            try {
+                fichero = new FileWriter("articulos2.txt");
+                escritor = new PrintWriter(fichero) ;
+                escritor.println("Esto es una linea del fichero");
+            } catch (IOException ioe) {
+                ioe.printStackTrace() ;
+            } finally {
+                if (fichero != null)
+                    try {
+                        fichero.close();
+                    } catch (IOException ioe) { 
+                        ioe.printStackTrace();
+                    }
+            }
+        }
 }
 
 

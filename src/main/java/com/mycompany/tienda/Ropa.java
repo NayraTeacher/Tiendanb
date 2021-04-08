@@ -9,16 +9,18 @@ package com.mycompany.tienda;
  * Clase que hereda de artículo y nos sirve para definir articulos de tipo ropa de los que nos interesa tambien el color y la talla.
  * @author Nayra
  */
-public final class Ropa extends Articulo implements Reciclable{
+public class Ropa extends Articulo implements Reciclable{
     private String color;
     private TallaSML talla;
+    private int numReciclado;
     
     public Ropa(){}
     
-    public Ropa(String color, TallaSML talla, String codigo, String nombre, float precio, int stock){
+    public Ropa(String color, TallaSML talla, int num, String codigo, String nombre, float precio, int stock){
        super(codigo, nombre, precio, stock);
        this.color = color;
        this.talla = talla;
+       this.numReciclado = num;
     }
     
     @Override
@@ -66,6 +68,7 @@ public final class Ropa extends Articulo implements Reciclable{
     public boolean esReciclable() {
         //TODO
         //La ropa es reciclable solo 2 veces
+        return this.numReciclado < 2;
     }
 
     @Override
@@ -74,5 +77,7 @@ public final class Ropa extends Articulo implements Reciclable{
         //La ropa reciclada tiene un 50% de descuento
         //Ademas de aplicar el descuento, modifica el atributo de que 
         // ha sido reciclada
+        this.numReciclado +=1;
+        this.setPrecio(((float)this.getPrecio()*0.5));
     }
 }

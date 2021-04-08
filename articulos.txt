@@ -1,0 +1,6 @@
+amarillo,S,0,0301,camiseta,15.50F,100
+naranja,S,0,0302,camiseta,15.50F,100
+violeta,S,0,0303,camiseta,15.50F,100
+negro,S,0,0304,camiseta,15.50F,100
+marron,S,0,0305,camiseta,15.50F,100
+gris,S,0,0306,camiseta,15.50F,100
